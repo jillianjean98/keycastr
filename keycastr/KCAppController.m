@@ -1,6 +1,6 @@
 //	Copyright (c) 2009 Stephen Deken
 //	All rights reserved.
-// 
+//
 //	Redistribution and use in source and binary forms, with or without modification,
 //	are permitted provided that the following conditions are met:
 //
@@ -194,7 +194,7 @@ static NSInteger kKCPrefDisplayIconInDock = 0x02;
 	KeyCombo toggleShortcutKey;
 	toggleShortcutKey.code = -1;
 	toggleShortcutKey.flags = 0;
-	
+
 	NSData *toggleShortcutKeyData = [[NSUserDefaults standardUserDefaults] dataForKey:kKCPrefCapturingHotKey];
     if (toggleShortcutKeyData != nil) {
 		[toggleShortcutKeyData getBytes:&toggleShortcutKey length:sizeof(toggleShortcutKey)];
@@ -211,7 +211,7 @@ static NSInteger kKCPrefDisplayIconInDock = 0x02;
 		[preferencesWindow center];
 		[preferencesWindow makeKeyAndOrderFront:self];
 	}
-    
+
     [[NSUserDefaults standardUserDefaults] addObserver:self
                                             forKeyPath:kKCPrefDisplayIcon
                                                options:(NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew)
@@ -225,7 +225,7 @@ static NSInteger kKCPrefDisplayIconInDock = 0x02;
         [self toggleRecording:self];
 		return;
 	}
-	
+
 	if (!_isCapturing)
 		return;
 
@@ -295,7 +295,7 @@ static NSInteger kKCPrefDisplayIconInDock = 0x02;
 	// register the built-in default visualizer
 //	id factory = [[[KCDefaultVisualizerFactory alloc] init] autorelease];
 //	[KCVisualizer registerVisualizerFactory:factory withName:[factory visualizerName]];
-	
+
 	// register other visualizers from plug-in paths
 	NSMutableArray *pluginSearchPaths = [NSMutableArray arrayWithObject:[[NSBundle mainBundle] builtInPlugInsPath]];
 
@@ -423,7 +423,7 @@ static NSInteger kKCPrefDisplayIconInDock = 0x02;
 
 -(void) setIsCapturing:(BOOL)v
 {
-	_isCapturing = v;
+	_isCapturing = true;
 	[statusItem setImage:(_isCapturing
 		? [NSImage imageNamed:@"KeyCastrStatusItemActive"]
 		: [NSImage imageNamed:@"KeyCastrStatusItemInactive"])
@@ -468,7 +468,7 @@ static NSInteger kKCPrefDisplayIconInDock = 0x02;
     if (0 == (prefDisplayIcon & (kKCPrefDisplayIconInMenuBar | kKCPrefDisplayIconInDock))) {
         prefDisplayIcon = prefDisplayIcon | kKCPrefDisplayIconInDock;
     }
-    
+
     ProcessSerialNumber psn = { 0, kCurrentProcess };
     if (prefDisplayIcon & kKCPrefDisplayIconInDock) {
         // show dock icon
